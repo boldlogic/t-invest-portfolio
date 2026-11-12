@@ -1,0 +1,897 @@
+:root {
+  --tui-font-heading: dsHeading, 'dsHeading Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
+    sans-serif;
+  --tui-font-heading-1-base-font-size: 50px;
+  --tui-font-heading-1-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-heading-1-base-font-size));
+  --tui-font-heading-1-lh-ratio: 1.12;
+  --tui-font-heading-1-base-lh: calc(var(--tui-font-heading-1-base-font-size) * var(--tui-font-heading-1-lh-ratio));
+  --tui-font-heading-1-lh: calc(var(--tui-font-heading-1-font-size) * var(--tui-font-heading-1-lh-ratio));
+  --tui-font-heading-1: 700 var(--tui-font-heading-1-font-size) / var(--tui-font-heading-1-lh) var(--tui-font-heading);
+  --tui-font-heading-2-base-font-size: 44px;
+  --tui-font-heading-2-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-heading-2-base-font-size));
+  --tui-font-heading-2-lh-ratio: 1.0909091;
+  --tui-font-heading-2-base-lh: calc(var(--tui-font-heading-2-base-font-size) * var(--tui-font-heading-2-lh-ratio));
+  --tui-font-heading-2-lh: calc(var(--tui-font-heading-2-font-size) * var(--tui-font-heading-2-lh-ratio));
+  --tui-font-heading-2: 700 var(--tui-font-heading-2-font-size) / var(--tui-font-heading-2-lh) var(--tui-font-heading);
+  --tui-font-heading-3-base-font-size: 36px;
+  --tui-font-heading-3-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-heading-3-base-font-size));
+  --tui-font-heading-3-lh-ratio: 1.1111111;
+  --tui-font-heading-3-base-lh: calc(var(--tui-font-heading-3-base-font-size) * var(--tui-font-heading-3-lh-ratio));
+  --tui-font-heading-3-lh: calc(var(--tui-font-heading-3-font-size) * var(--tui-font-heading-3-lh-ratio));
+  --tui-font-heading-3: 500 var(--tui-font-heading-3-font-size) / var(--tui-font-heading-3-lh) var(--tui-font-heading);
+  --tui-font-heading-4-base-font-size: 28px;
+  --tui-font-heading-4-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-heading-4-base-font-size));
+  --tui-font-heading-4-lh-ratio: 1.1428571;
+  --tui-font-heading-4-base-lh: calc(var(--tui-font-heading-4-base-font-size) * var(--tui-font-heading-4-lh-ratio));
+  --tui-font-heading-4-lh: calc(var(--tui-font-heading-4-font-size) * var(--tui-font-heading-4-lh-ratio));
+  --tui-font-heading-4: 500 var(--tui-font-heading-4-font-size) / var(--tui-font-heading-4-lh) var(--tui-font-heading);
+  --tui-font-heading-5-base-font-size: 24px;
+  --tui-font-heading-5-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-heading-5-base-font-size));
+  --tui-font-heading-5-lh-ratio: 1.1666667;
+  --tui-font-heading-5-base-lh: calc(var(--tui-font-heading-5-base-font-size) * var(--tui-font-heading-5-lh-ratio));
+  --tui-font-heading-5-lh: calc(var(--tui-font-heading-5-font-size) * var(--tui-font-heading-5-lh-ratio));
+  --tui-font-heading-5: 500 var(--tui-font-heading-5-font-size) / var(--tui-font-heading-5-lh) var(--tui-font-heading);
+  --tui-font-heading-6-base-font-size: 20px;
+  --tui-font-heading-6-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-heading-6-base-font-size));
+  --tui-font-heading-6-lh-ratio: 1.2;
+  --tui-font-heading-6-base-lh: calc(var(--tui-font-heading-6-base-font-size) * var(--tui-font-heading-6-lh-ratio));
+  --tui-font-heading-6-lh: calc(var(--tui-font-heading-6-font-size) * var(--tui-font-heading-6-lh-ratio));
+  --tui-font-heading-6: 500 var(--tui-font-heading-6-font-size) / var(--tui-font-heading-6-lh) var(--tui-font-heading);
+  --tui-font-text: dsText, 'dsText Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
+    sans-serif;
+  --tui-font-text-xl-base-font-size: 19px;
+  --tui-font-text-xl-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-xl-base-font-size));
+  --tui-font-text-xl-lh-ratio: 1.4736842;
+  --tui-font-text-xl-base-lh: calc(var(--tui-font-text-xl-base-font-size) * var(--tui-font-text-xl-lh-ratio));
+  --tui-font-text-xl-lh: calc(var(--tui-font-text-xl-font-size) * var(--tui-font-text-xl-lh-ratio));
+  --tui-font-text-xl: 400 var(--tui-font-text-xl-font-size) / var(--tui-font-text-xl-lh) var(--tui-font-text);
+  --tui-font-text-xl-bold: 500 var(--tui-font-text-xl-font-size) / var(--tui-font-text-xl-lh) var(--tui-font-text);
+  --tui-font-text-l-base-font-size: 17px;
+  --tui-font-text-l-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-l-base-font-size));
+  --tui-font-text-l-lh-ratio: 1.6470588;
+  --tui-font-text-l-base-lh: calc(var(--tui-font-text-l-base-font-size) * var(--tui-font-text-l-lh-ratio));
+  --tui-font-text-l-lh: calc(var(--tui-font-text-l-font-size) * var(--tui-font-text-l-lh-ratio));
+  --tui-font-text-l: 400 var(--tui-font-text-l-font-size) / var(--tui-font-text-l-lh) var(--tui-font-text);
+  --tui-font-text-l-bold: 500 var(--tui-font-text-l-font-size) / var(--tui-font-text-l-lh) var(--tui-font-text);
+  --tui-font-text-m-base-font-size: 15px;
+  --tui-font-text-m-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-m-base-font-size));
+  --tui-font-text-m-lh-ratio: 1.6;
+  --tui-font-text-m-base-lh: calc(var(--tui-font-text-m-base-font-size) * var(--tui-font-text-m-lh-ratio));
+  --tui-font-text-m-lh: calc(var(--tui-font-text-m-font-size) * var(--tui-font-text-m-lh-ratio));
+  --tui-font-text-m: 400 var(--tui-font-text-m-font-size) / var(--tui-font-text-m-lh) var(--tui-font-text);
+  --tui-font-text-m-bold: 500 var(--tui-font-text-m-font-size) / var(--tui-font-text-m-lh) var(--tui-font-text);
+  --tui-font-text-s-base-font-size: 13px;
+  --tui-font-text-s-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-s-base-font-size));
+  --tui-font-text-s-lh-ratio: 1.5384615;
+  --tui-font-text-s-base-lh: calc(var(--tui-font-text-s-base-font-size) * var(--tui-font-text-s-lh-ratio));
+  --tui-font-text-s-lh: calc(var(--tui-font-text-s-font-size) * var(--tui-font-text-s-lh-ratio));
+  --tui-font-text-s: 400 var(--tui-font-text-s-font-size) / var(--tui-font-text-s-lh) var(--tui-font-text);
+  --tui-font-text-s-bold: 500 var(--tui-font-text-s-font-size) / var(--tui-font-text-s-lh) var(--tui-font-text);
+  --tui-font-text-xs-base-font-size: 11px;
+  --tui-font-text-xs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-xs-base-font-size));
+  --tui-font-text-xs-lh-ratio: 1.4545455;
+  --tui-font-text-xs-base-lh: calc(var(--tui-font-text-xs-base-font-size) * var(--tui-font-text-xs-lh-ratio));
+  --tui-font-text-xs-lh: calc(var(--tui-font-text-xs-font-size) * var(--tui-font-text-xs-lh-ratio));
+  --tui-font-text-xs: 400 var(--tui-font-text-xs-font-size) / var(--tui-font-text-xs-lh) var(--tui-font-text);
+  --tui-font-text-xs-letter-spacing: 0.4px;
+  --tui-font-text-xs-bold: 500 var(--tui-font-text-xs-font-size) / var(--tui-font-text-xs-lh) var(--tui-font-text);
+  --tui-font-text-xxs-base-font-size: 9px;
+  --tui-font-text-xxs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-xxs-base-font-size));
+  --tui-font-text-xxs-lh-ratio: 1.7777778;
+  --tui-font-text-xxs-base-lh: calc(var(--tui-font-text-xxs-base-font-size) * var(--tui-font-text-xxs-lh-ratio));
+  --tui-font-text-xxs-lh: calc(var(--tui-font-text-xxs-font-size) * var(--tui-font-text-xxs-lh-ratio));
+  --tui-font-text-xxs: 400 var(--tui-font-text-xxs-font-size) / var(--tui-font-text-xxs-lh) var(--tui-font-text);
+  --tui-font-text-xxs-bold: 500 var(--tui-font-text-xxs-font-size) / var(--tui-font-text-xxs-lh) var(--tui-font-text);
+  --tui-font-text-ui-l-base-font-size: 17px;
+  --tui-font-text-ui-l-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-ui-l-base-font-size));
+  --tui-font-text-ui-l-lh-ratio: 1.4117647;
+  --tui-font-text-ui-l-base-lh: calc(var(--tui-font-text-ui-l-base-font-size) * var(--tui-font-text-ui-l-lh-ratio));
+  --tui-font-text-ui-l-lh: calc(var(--tui-font-text-ui-l-font-size) * var(--tui-font-text-ui-l-lh-ratio));
+  --tui-font-text-ui-l: 400 var(--tui-font-text-ui-l-font-size) / var(--tui-font-text-ui-l-lh) var(--tui-font-text);
+  --tui-font-text-ui-l-bold: 500 var(--tui-font-text-ui-l-font-size) / var(--tui-font-text-ui-l-lh) var(--tui-font-text);
+  --tui-font-text-ui-m-base-font-size: 15px;
+  --tui-font-text-ui-m-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-ui-m-base-font-size));
+  --tui-font-text-ui-m-lh-ratio: 1.3333333;
+  --tui-font-text-ui-m-base-lh: calc(var(--tui-font-text-ui-m-base-font-size) * var(--tui-font-text-ui-m-lh-ratio));
+  --tui-font-text-ui-m-lh: calc(var(--tui-font-text-ui-m-font-size) * var(--tui-font-text-ui-m-lh-ratio));
+  --tui-font-text-ui-m: 400 var(--tui-font-text-ui-m-font-size) / var(--tui-font-text-ui-m-lh) var(--tui-font-text);
+  --tui-font-text-ui-m-bold: 500 var(--tui-font-text-ui-m-font-size) / var(--tui-font-text-ui-m-lh) var(--tui-font-text);
+  --tui-font-text-ui-s-base-font-size: 13px;
+  --tui-font-text-ui-s-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-ui-s-base-font-size));
+  --tui-font-text-ui-s-lh-ratio: 1.2307692;
+  --tui-font-text-ui-s-base-lh: calc(var(--tui-font-text-ui-s-base-font-size) * var(--tui-font-text-ui-s-lh-ratio));
+  --tui-font-text-ui-s-lh: calc(var(--tui-font-text-ui-s-font-size) * var(--tui-font-text-ui-s-lh-ratio));
+  --tui-font-text-ui-s: 400 var(--tui-font-text-ui-s-font-size) / var(--tui-font-text-ui-s-lh) var(--tui-font-text);
+  --tui-font-text-ui-s-bold: 500 var(--tui-font-text-ui-s-font-size) / var(--tui-font-text-ui-s-lh) var(--tui-font-text);
+  --tui-font-text-ui-xs-base-font-size: 11px;
+  --tui-font-text-ui-xs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-ui-xs-base-font-size));
+  --tui-font-text-ui-xs-lh-ratio: 1.1818182;
+  --tui-font-text-ui-xs-base-lh: calc(var(--tui-font-text-ui-xs-base-font-size) * var(--tui-font-text-ui-xs-lh-ratio));
+  --tui-font-text-ui-xs-lh: calc(var(--tui-font-text-ui-xs-font-size) * var(--tui-font-text-ui-xs-lh-ratio));
+  --tui-font-text-ui-xs: 400 var(--tui-font-text-ui-xs-font-size) / var(--tui-font-text-ui-xs-lh) var(--tui-font-text);
+  --tui-font-text-ui-xs-letter-spacing: 0.4px;
+  --tui-font-text-ui-xs-bold: 500 var(--tui-font-text-ui-xs-font-size) / var(--tui-font-text-ui-xs-lh)
+    var(--tui-font-text);
+  --tui-font-text-ui-xxs-base-font-size: 9px;
+  --tui-font-text-ui-xxs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-text-ui-xxs-base-font-size));
+  --tui-font-text-ui-xxs-lh-ratio: 1.4444444;
+  --tui-font-text-ui-xxs-base-lh: calc(
+    var(--tui-font-text-ui-xxs-base-font-size) * var(--tui-font-text-ui-xxs-lh-ratio)
+  );
+  --tui-font-text-ui-xxs-lh: calc(var(--tui-font-text-ui-xxs-font-size) * var(--tui-font-text-ui-xxs-lh-ratio));
+  --tui-font-text-ui-xxs: 400 var(--tui-font-text-ui-xxs-font-size) / var(--tui-font-text-ui-xxs-lh)
+    var(--tui-font-text);
+  --tui-font-text-ui-xxs-bold: 500 var(--tui-font-text-ui-xxs-font-size) / var(--tui-font-text-ui-xxs-lh)
+    var(--tui-font-text);
+  --tui-font-text-ui-caps-l-base-font-size: 13px;
+  --tui-font-text-ui-caps-l-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-font-text-ui-caps-l-base-font-size)
+  );
+  --tui-font-text-ui-caps-l-lh-ratio: 1.5384615;
+  --tui-font-text-ui-caps-l-base-lh: calc(
+    var(--tui-font-text-ui-caps-l-base-font-size) * var(--tui-font-text-ui-caps-l-lh-ratio)
+  );
+  --tui-font-text-ui-caps-l-lh: calc(
+    var(--tui-font-text-ui-caps-l-font-size) * var(--tui-font-text-ui-caps-l-lh-ratio)
+  );
+  --tui-font-text-ui-caps-l: 400 var(--tui-font-text-ui-caps-l-font-size) / var(--tui-font-text-ui-caps-l-lh)
+    var(--tui-font-text);
+  --tui-font-text-ui-caps-l-text-transform: uppercase;
+  --tui-font-text-ui-caps-l-letter-spacing: 1px;
+  --tui-font-text-ui-caps-l-bold: 500 var(--tui-font-text-ui-caps-l-font-size) / var(--tui-font-text-ui-caps-l-lh)
+    var(--tui-font-text);
+  --tui-font-text-ui-caps-s-base-font-size: 11px;
+  --tui-font-text-ui-caps-s-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-font-text-ui-caps-s-base-font-size)
+  );
+  --tui-font-text-ui-caps-s-lh-ratio: 1.4545455;
+  --tui-font-text-ui-caps-s-base-lh: calc(
+    var(--tui-font-text-ui-caps-s-base-font-size) * var(--tui-font-text-ui-caps-s-lh-ratio)
+  );
+  --tui-font-text-ui-caps-s-lh: calc(
+    var(--tui-font-text-ui-caps-s-font-size) * var(--tui-font-text-ui-caps-s-lh-ratio)
+  );
+  --tui-font-text-ui-caps-s: 400 var(--tui-font-text-ui-caps-s-font-size) / var(--tui-font-text-ui-caps-s-lh)
+    var(--tui-font-text);
+  --tui-font-text-ui-caps-s-text-transform: uppercase;
+  --tui-font-text-ui-caps-s-letter-spacing: 1px;
+  --tui-font-text-ui-caps-s-bold: 500 var(--tui-font-text-ui-caps-s-font-size) / var(--tui-font-text-ui-caps-s-lh)
+    var(--tui-font-text);
+  --tui-font-numbers: dsHeading, 'dsHeading Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
+    sans-serif;
+  --tui-font-numbers-2xl-base-font-size: 56px;
+  --tui-font-numbers-2xl-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-numbers-2xl-base-font-size));
+  --tui-font-numbers-2xl-lh-ratio: 1.1428571;
+  --tui-font-numbers-2xl-base-lh: calc(
+    var(--tui-font-numbers-2xl-base-font-size) * var(--tui-font-numbers-2xl-lh-ratio)
+  );
+  --tui-font-numbers-2xl-lh: calc(var(--tui-font-numbers-2xl-font-size) * var(--tui-font-numbers-2xl-lh-ratio));
+  --tui-font-numbers-2xl: 500 var(--tui-font-numbers-2xl-font-size) / var(--tui-font-numbers-2xl-lh)
+    var(--tui-font-numbers);
+  --tui-font-numbers-2xl-text-transform: uppercase;
+  --tui-font-numbers-xl-base-font-size: 36px;
+  --tui-font-numbers-xl-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-numbers-xl-base-font-size));
+  --tui-font-numbers-xl-lh-ratio: 1.1111111;
+  --tui-font-numbers-xl-base-lh: calc(var(--tui-font-numbers-xl-base-font-size) * var(--tui-font-numbers-xl-lh-ratio));
+  --tui-font-numbers-xl-lh: calc(var(--tui-font-numbers-xl-font-size) * var(--tui-font-numbers-xl-lh-ratio));
+  --tui-font-numbers-xl: 500 var(--tui-font-numbers-xl-font-size) / var(--tui-font-numbers-xl-lh)
+    var(--tui-font-numbers);
+  --tui-font-numbers-xl-text-transform: uppercase;
+  --tui-font-numbers-m-base-font-size: 20px;
+  --tui-font-numbers-m-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-font-numbers-m-base-font-size));
+  --tui-font-numbers-m-lh-ratio: 1.2;
+  --tui-font-numbers-m-base-lh: calc(var(--tui-font-numbers-m-base-font-size) * var(--tui-font-numbers-m-lh-ratio));
+  --tui-font-numbers-m-lh: calc(var(--tui-font-numbers-m-font-size) * var(--tui-font-numbers-m-lh-ratio));
+  --tui-font-numbers-m: 500 var(--tui-font-numbers-m-font-size) / var(--tui-font-numbers-m-lh) var(--tui-font-numbers);
+  --tui-font-numbers-m-text-transform: uppercase;
+  --tui-font-letter-spacing-reset: normal;
+  --tui-font-font-variant-ligatures-reset: normal;
+  --tui-font-heading-mobile-l-base-font-size: var(--tui-font-heading-1-base-font-size);
+  --tui-font-heading-mobile-l-font-size: var(--tui-font-heading-1-font-size);
+  --tui-font-heading-mobile-l-lh-ratio: var(--tui-font-heading-1-lh-ratio);
+  --tui-font-heading-mobile-l-base-lh: var(--tui-font-heading-1-base-lh);
+  --tui-font-heading-mobile-l-lh: var(--tui-font-heading-1-lh);
+  --tui-font-heading-mobile-l: var(--tui-font-heading-1);
+  --tui-font-heading-mobile-m-base-font-size: var(--tui-font-heading-4-base-font-size);
+  --tui-font-heading-mobile-m-font-size: var(--tui-font-heading-4-font-size);
+  --tui-font-heading-mobile-m-lh-ratio: var(--tui-font-heading-4-lh-ratio);
+  --tui-font-heading-mobile-m-base-lh: var(--tui-font-heading-4-base-lh);
+  --tui-font-heading-mobile-m-lh: var(--tui-font-heading-4-lh);
+  --tui-font-heading-mobile-m: var(--tui-font-heading-4);
+  --tui-font-heading-mobile-s-base-font-size: var(--tui-font-heading-6-base-font-size);
+  --tui-font-heading-mobile-s-font-size: var(--tui-font-heading-6-font-size);
+  --tui-font-heading-mobile-s-lh-ratio: var(--tui-font-heading-6-lh-ratio);
+  --tui-font-heading-mobile-s-base-lh: var(--tui-font-heading-6-base-lh);
+  --tui-font-heading-mobile-s-lh: var(--tui-font-heading-6-lh);
+  --tui-font-heading-mobile-s: var(--tui-font-heading-6);
+  --tui-font-text-mobile-l-base-font-size: var(--tui-font-text-xl-base-font-size);
+  --tui-font-text-mobile-l-font-size: var(--tui-font-text-xl-font-size);
+  --tui-font-text-mobile-l-lh-ratio: var(--tui-font-text-xl-lh-ratio);
+  --tui-font-text-mobile-l-base-lh: var(--tui-font-text-xl-base-lh);
+  --tui-font-text-mobile-l-lh: var(--tui-font-text-xl-lh);
+  --tui-font-text-mobile-l: var(--tui-font-text-xl);
+  --tui-font-text-mobile-l-bold: var(--tui-font-text-xl-bold);
+  --tui-font-text-mobile-m-base-font-size: var(--tui-font-text-m-base-font-size);
+  --tui-font-text-mobile-m-font-size: var(--tui-font-text-m-font-size);
+  --tui-font-text-mobile-m-lh-ratio: var(--tui-font-text-m-lh-ratio);
+  --tui-font-text-mobile-m-base-lh: var(--tui-font-text-m-base-lh);
+  --tui-font-text-mobile-m-lh: var(--tui-font-text-m-lh);
+  --tui-font-text-mobile-m: var(--tui-font-text-m);
+  --tui-font-text-mobile-m-bold: var(--tui-font-text-m-bold);
+  --tui-font-text-mobile-s-base-font-size: var(--tui-font-text-s-base-font-size);
+  --tui-font-text-mobile-s-font-size: var(--tui-font-text-s-font-size);
+  --tui-font-text-mobile-s-lh-ratio: var(--tui-font-text-s-lh-ratio);
+  --tui-font-text-mobile-s-base-lh: var(--tui-font-text-s-base-lh);
+  --tui-font-text-mobile-s-lh: var(--tui-font-text-s-lh);
+  --tui-font-text-mobile-s: var(--tui-font-text-s);
+  --tui-font-text-mobile-s-bold: var(--tui-font-text-s-bold);
+  --tui-font-text-mobile-xs-base-font-size: var(--tui-font-text-xs-base-font-size);
+  --tui-font-text-mobile-xs-font-size: var(--tui-font-text-xs-font-size);
+  --tui-font-text-mobile-xs-lh-ratio: var(--tui-font-text-xs-lh-ratio);
+  --tui-font-text-mobile-xs-base-lh: var(--tui-font-text-xs-base-lh);
+  --tui-font-text-mobile-xs-lh: var(--tui-font-text-xs-lh);
+  --tui-font-text-mobile-xs: var(--tui-font-text-xs);
+  --tui-font-text-mobile-xs-bold: var(--tui-font-text-xs-bold);
+  --tui-font-text-mobile-xxs-base-font-size: var(--tui-font-text-xxs-base-font-size);
+  --tui-font-text-mobile-xxs-font-size: var(--tui-font-text-xxs-font-size);
+  --tui-font-text-mobile-xxs-lh-ratio: var(--tui-font-text-xxs-lh-ratio);
+  --tui-font-text-mobile-xxs-base-lh: var(--tui-font-text-xxs-base-lh);
+  --tui-font-text-mobile-xxs-lh: var(--tui-font-text-xxs-lh);
+  --tui-font-text-mobile-xxs: var(--tui-font-text-xxs);
+  --tui-font-text-mobile-xxs-bold: var(--tui-font-text-xxs-bold);
+  --tui-font-text-ui-mobile-l-base-font-size: var(--tui-font-text-ui-l-base-font-size);
+  --tui-font-text-ui-mobile-l-font-size: var(--tui-font-text-ui-l-font-size);
+  --tui-font-text-ui-mobile-l-lh-ratio: var(--tui-font-text-ui-l-lh-ratio);
+  --tui-font-text-ui-mobile-l-base-lh: var(--tui-font-text-ui-l-base-lh);
+  --tui-font-text-ui-mobile-l-lh: var(--tui-font-text-ui-l-lh);
+  --tui-font-text-ui-mobile-l: var(--tui-font-text-ui-l);
+  --tui-font-text-ui-mobile-l-bold: var(--tui-font-text-ui-l-bold);
+  --tui-font-text-ui-mobile-m-base-font-size: var(--tui-font-text-ui-m-base-font-size);
+  --tui-font-text-ui-mobile-m-font-size: var(--tui-font-text-ui-m-font-size);
+  --tui-font-text-ui-mobile-m-lh-ratio: var(--tui-font-text-ui-m-lh-ratio);
+  --tui-font-text-ui-mobile-m-base-lh: var(--tui-font-text-ui-m-base-lh);
+  --tui-font-text-ui-mobile-m-lh: var(--tui-font-text-ui-m-lh);
+  --tui-font-text-ui-mobile-m: var(--tui-font-text-ui-m);
+  --tui-font-text-ui-mobile-m-bold: var(--tui-font-text-ui-m-bold);
+  --tui-font-text-ui-mobile-s-base-font-size: var(--tui-font-text-ui-s-base-font-size);
+  --tui-font-text-ui-mobile-s-font-size: var(--tui-font-text-ui-s-font-size);
+  --tui-font-text-ui-mobile-s-lh-ratio: var(--tui-font-text-ui-s-lh-ratio);
+  --tui-font-text-ui-mobile-s-base-lh: var(--tui-font-text-ui-s-base-lh);
+  --tui-font-text-ui-mobile-s-lh: var(--tui-font-text-ui-s-lh);
+  --tui-font-text-ui-mobile-s: var(--tui-font-text-ui-s);
+  --tui-font-text-ui-mobile-s-bold: var(--tui-font-text-ui-s-bold);
+  --tui-font-text-ui-mobile-xs-base-font-size: var(--tui-font-text-ui-xs-base-font-size);
+  --tui-font-text-ui-mobile-xs-font-size: var(--tui-font-text-ui-xs-font-size);
+  --tui-font-text-ui-mobile-xs-lh-ratio: var(--tui-font-text-ui-xs-lh-ratio);
+  --tui-font-text-ui-mobile-xs-base-lh: var(--tui-font-text-ui-xs-base-lh);
+  --tui-font-text-ui-mobile-xs-lh: var(--tui-font-text-ui-xs-lh);
+  --tui-font-text-ui-mobile-xs: var(--tui-font-text-ui-xs);
+  --tui-font-text-ui-mobile-xs-bold: var(--tui-font-text-ui-xs-bold);
+  --tui-font-text-ui-mobile-xxs-base-font-size: var(--tui-font-text-ui-xxs-base-font-size);
+  --tui-font-text-ui-mobile-xxs-font-size: var(--tui-font-text-ui-xxs-font-size);
+  --tui-font-text-ui-mobile-xxs-lh-ratio: var(--tui-font-text-ui-xxs-lh-ratio);
+  --tui-font-text-ui-mobile-xxs-base-lh: var(--tui-font-text-ui-xxs-base-lh);
+  --tui-font-text-ui-mobile-xxs-lh: var(--tui-font-text-ui-xxs-lh);
+  --tui-font-text-ui-mobile-xxs: var(--tui-font-text-ui-xxs);
+  --tui-font-text-ui-mobile-xxs-bold: var(--tui-font-text-ui-xxs-bold);
+  --tui-font-text-ui-caps-mobile-base-font-size: var(--tui-font-text-ui-caps-l-base-font-size);
+  --tui-font-text-ui-caps-mobile-font-size: var(--tui-font-text-ui-caps-l-font-size);
+  --tui-font-text-ui-caps-mobile-lh-ratio: var(--tui-font-text-ui-caps-l-lh-ratio);
+  --tui-font-text-ui-caps-mobile-base-lh: var(--tui-font-text-ui-caps-l-base-lh);
+  --tui-font-text-ui-caps-mobile-lh: var(--tui-font-text-ui-caps-l-lh);
+  --tui-font-text-ui-caps-mobile: var(--tui-font-text-ui-caps-l);
+  --tui-font-text-ui-caps-mobile-bold: var(--tui-font-text-ui-caps-l-bold);
+  --tui-font-text-ui-numbers-mobile-2xl-base-font-size: var(--tui-font-numbers-2xl-base-font-size);
+  --tui-font-text-ui-numbers-mobile-2xl-font-size: var(--tui-font-numbers-2xl-font-size);
+  --tui-font-text-ui-numbers-mobile-2xl-lh-ratio: var(--tui-font-numbers-2xl-lh-ratio);
+  --tui-font-text-ui-numbers-mobile-2xl-base-lh: var(--tui-font-numbers-2xl-base-lh);
+  --tui-font-text-ui-numbers-mobile-2xl-lh: var(--tui-font-numbers-2xl-lh);
+  --tui-font-text-ui-numbers-mobile-2xl: var(--tui-font-numbers-2xl);
+  --tui-font-text-ui-numbers-mobile-xl-base-font-size: var(--tui-font-numbers-xl-base-font-size);
+  --tui-font-text-ui-numbers-mobile-xl-font-size: var(--tui-font-numbers-xl-font-size);
+  --tui-font-text-ui-numbers-mobile-xl-lh-ratio: var(--tui-font-numbers-xl-lh-ratio);
+  --tui-font-text-ui-numbers-mobile-xl-base-lh: var(--tui-font-numbers-xl-base-lh);
+  --tui-font-text-ui-numbers-mobile-xl-lh: var(--tui-font-numbers-xl-lh);
+  --tui-font-text-ui-numbers-mobile-xl: var(--tui-font-numbers-xl);
+  --tui-font-text-ui-numbers-mobile-m-base-font-size: var(--tui-font-numbers-m-base-font-size);
+  --tui-font-text-ui-numbers-mobile-m-font-size: var(--tui-font-numbers-m-font-size);
+  --tui-font-text-ui-numbers-mobile-m-lh-ratio: var(--tui-font-numbers-m-lh-ratio);
+  --tui-font-text-ui-numbers-mobile-m-base-lh: var(--tui-font-numbers-m-base-lh);
+  --tui-font-text-ui-numbers-mobile-m-lh: var(--tui-font-numbers-m-lh);
+  --tui-font-text-ui-numbers-mobile-m: var(--tui-font-numbers-m);
+  --tui-typography-font-family-text: 'Neue Haas Unica W1G';
+  --tui-typography-font-family-text-fallback: system-ui, sans-serif;
+  --tui-typography-font-family-display: 'T-Sans';
+  --tui-typography-font-family-display-fallback: system-ui, sans-serif;
+  --tui-typography-font-family-code: 'JetBrains Mono';
+  --tui-typography-font-family-code-fallback: monospace;
+  --tui-typography-heading-desktop-h1-base-font-size: 50px;
+  --tui-typography-heading-desktop-h1-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-heading-desktop-h1-base-font-size)
+  );
+  --tui-typography-heading-desktop-h1-line-height-ratio: 1.12;
+  --tui-typography-heading-desktop-h1-base-line-height: calc(
+    var(--tui-typography-heading-desktop-h1-base-font-size) * var(--tui-typography-heading-desktop-h1-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h1-line-height: calc(
+    var(--tui-typography-heading-desktop-h1-font-size) * var(--tui-typography-heading-desktop-h1-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h1: 700 var(--tui-typography-heading-desktop-h1-font-size) /
+      var(--tui-typography-heading-desktop-h1-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-heading-desktop-h2-base-font-size: 44px;
+  --tui-typography-heading-desktop-h2-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-heading-desktop-h2-base-font-size)
+  );
+  --tui-typography-heading-desktop-h2-line-height-ratio: 1.0909091;
+  --tui-typography-heading-desktop-h2-base-line-height: calc(
+    var(--tui-typography-heading-desktop-h2-base-font-size) * var(--tui-typography-heading-desktop-h2-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h2-line-height: calc(
+    var(--tui-typography-heading-desktop-h2-font-size) * var(--tui-typography-heading-desktop-h2-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h2: 700 var(--tui-typography-heading-desktop-h2-font-size) /
+      var(--tui-typography-heading-desktop-h2-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-heading-desktop-h3-base-font-size: 36px;
+  --tui-typography-heading-desktop-h3-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-heading-desktop-h3-base-font-size)
+  );
+  --tui-typography-heading-desktop-h3-line-height-ratio: 1.1111111;
+  --tui-typography-heading-desktop-h3-base-line-height: calc(
+    var(--tui-typography-heading-desktop-h3-base-font-size) * var(--tui-typography-heading-desktop-h3-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h3-line-height: calc(
+    var(--tui-typography-heading-desktop-h3-font-size) * var(--tui-typography-heading-desktop-h3-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h3: 500 var(--tui-typography-heading-desktop-h3-font-size) /
+      var(--tui-typography-heading-desktop-h3-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-heading-desktop-h4-base-font-size: 28px;
+  --tui-typography-heading-desktop-h4-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-heading-desktop-h4-base-font-size)
+  );
+  --tui-typography-heading-desktop-h4-line-height-ratio: 1.1428571;
+  --tui-typography-heading-desktop-h4-base-line-height: calc(
+    var(--tui-typography-heading-desktop-h4-base-font-size) * var(--tui-typography-heading-desktop-h4-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h4-line-height: calc(
+    var(--tui-typography-heading-desktop-h4-font-size) * var(--tui-typography-heading-desktop-h4-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h4: 500 var(--tui-typography-heading-desktop-h4-font-size) /
+      var(--tui-typography-heading-desktop-h4-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-heading-desktop-h5-base-font-size: 24px;
+  --tui-typography-heading-desktop-h5-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-heading-desktop-h5-base-font-size)
+  );
+  --tui-typography-heading-desktop-h5-line-height-ratio: 1.1666667;
+  --tui-typography-heading-desktop-h5-base-line-height: calc(
+    var(--tui-typography-heading-desktop-h5-base-font-size) * var(--tui-typography-heading-desktop-h5-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h5-line-height: calc(
+    var(--tui-typography-heading-desktop-h5-font-size) * var(--tui-typography-heading-desktop-h5-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h5: 500 var(--tui-typography-heading-desktop-h5-font-size) /
+      var(--tui-typography-heading-desktop-h5-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-heading-desktop-h6-base-font-size: 20px;
+  --tui-typography-heading-desktop-h6-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-heading-desktop-h6-base-font-size)
+  );
+  --tui-typography-heading-desktop-h6-line-height-ratio: 1.2;
+  --tui-typography-heading-desktop-h6-base-line-height: calc(
+    var(--tui-typography-heading-desktop-h6-base-font-size) * var(--tui-typography-heading-desktop-h6-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h6-line-height: calc(
+    var(--tui-typography-heading-desktop-h6-font-size) * var(--tui-typography-heading-desktop-h6-line-height-ratio)
+  );
+  --tui-typography-heading-desktop-h6: 500 var(--tui-typography-heading-desktop-h6-font-size) /
+      var(--tui-typography-heading-desktop-h6-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-heading-mobile-l-base-font-size: var(--tui-typography-heading-desktop-h1-base-font-size);
+  --tui-typography-heading-mobile-l-font-size: var(--tui-typography-heading-desktop-h1-font-size);
+  --tui-typography-heading-mobile-l-line-height-ratio: var(--tui-typography-heading-desktop-h1-line-height-ratio);
+  --tui-typography-heading-mobile-l-base-line-height: var(--tui-typography-heading-desktop-h1-base-line-height);
+  --tui-typography-heading-mobile-l-line-height: var(--tui-typography-heading-desktop-h1-line-height);
+  --tui-typography-heading-mobile-l: var(--tui-typography-heading-desktop-h1);
+  --tui-typography-heading-mobile-m-base-font-size: var(--tui-typography-heading-desktop-h4-base-font-size);
+  --tui-typography-heading-mobile-m-font-size: var(--tui-typography-heading-desktop-h4-font-size);
+  --tui-typography-heading-mobile-m-line-height-ratio: var(--tui-typography-heading-desktop-h4-line-height-ratio);
+  --tui-typography-heading-mobile-m-base-line-height: var(--tui-typography-heading-desktop-h4-base-line-height);
+  --tui-typography-heading-mobile-m-line-height: var(--tui-typography-heading-desktop-h4-line-height);
+  --tui-typography-heading-mobile-m: var(--tui-typography-heading-desktop-h4);
+  --tui-typography-heading-mobile-s-bold-base-font-size: var(--tui-typography-heading-desktop-h6-base-font-size);
+  --tui-typography-heading-mobile-s-bold-font-size: var(--tui-typography-heading-desktop-h6-font-size);
+  --tui-typography-heading-mobile-s-bold-line-height-ratio: var(--tui-typography-heading-desktop-h6-line-height-ratio);
+  --tui-typography-heading-mobile-s-bold-base-line-height: var(--tui-typography-heading-desktop-h6-base-line-height);
+  --tui-typography-heading-mobile-s-bold-line-height: var(--tui-typography-heading-desktop-h6-line-height);
+  --tui-typography-heading-mobile-s-bold: var(--tui-typography-heading-desktop-h6);
+  --tui-typography-heading-mobile-s-base-font-size: var(--tui-typography-heading-desktop-h6-base-font-size);
+  --tui-typography-heading-mobile-s-font-size: var(--tui-typography-heading-desktop-h6-font-size);
+  --tui-typography-heading-mobile-s-line-height-ratio: var(--tui-typography-heading-desktop-h6-line-height-ratio);
+  --tui-typography-heading-mobile-s-base-line-height: var(--tui-typography-heading-desktop-h6-base-line-height);
+  --tui-typography-heading-mobile-s-line-height: var(--tui-typography-heading-desktop-h6-line-height);
+  --tui-typography-heading-mobile-s: var(--tui-typography-heading-desktop-h6);
+  --tui-typography-body-l-bold-base-font-size: 17px;
+  --tui-typography-body-l-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-body-l-bold-base-font-size)
+  );
+  --tui-typography-body-l-bold-line-height-ratio: 1.6470588;
+  --tui-typography-body-l-bold-base-line-height: calc(
+    var(--tui-typography-body-l-bold-base-font-size) * var(--tui-typography-body-l-bold-line-height-ratio)
+  );
+  --tui-typography-body-l-bold-line-height: calc(
+    var(--tui-typography-body-l-bold-font-size) * var(--tui-typography-body-l-bold-line-height-ratio)
+  );
+  --tui-typography-body-l-bold: 500 var(--tui-typography-body-l-bold-font-size) /
+      var(--tui-typography-body-l-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-l-base-font-size: 17px;
+  --tui-typography-body-l-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-body-l-base-font-size));
+  --tui-typography-body-l-line-height-ratio: 1.6470588;
+  --tui-typography-body-l-base-line-height: calc(
+    var(--tui-typography-body-l-base-font-size) * var(--tui-typography-body-l-line-height-ratio)
+  );
+  --tui-typography-body-l-line-height: calc(
+    var(--tui-typography-body-l-font-size) * var(--tui-typography-body-l-line-height-ratio)
+  );
+  --tui-typography-body-l: 400 var(--tui-typography-body-l-font-size) / var(--tui-typography-body-l-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-m-bold-base-font-size: 15px;
+  --tui-typography-body-m-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-body-m-bold-base-font-size)
+  );
+  --tui-typography-body-m-bold-line-height-ratio: 1.6;
+  --tui-typography-body-m-bold-base-line-height: calc(
+    var(--tui-typography-body-m-bold-base-font-size) * var(--tui-typography-body-m-bold-line-height-ratio)
+  );
+  --tui-typography-body-m-bold-line-height: calc(
+    var(--tui-typography-body-m-bold-font-size) * var(--tui-typography-body-m-bold-line-height-ratio)
+  );
+  --tui-typography-body-m-bold: 500 var(--tui-typography-body-m-bold-font-size) /
+      var(--tui-typography-body-m-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-m-base-font-size: 15px;
+  --tui-typography-body-m-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-body-m-base-font-size));
+  --tui-typography-body-m-line-height-ratio: 1.6;
+  --tui-typography-body-m-base-line-height: calc(
+    var(--tui-typography-body-m-base-font-size) * var(--tui-typography-body-m-line-height-ratio)
+  );
+  --tui-typography-body-m-line-height: calc(
+    var(--tui-typography-body-m-font-size) * var(--tui-typography-body-m-line-height-ratio)
+  );
+  --tui-typography-body-m: 400 var(--tui-typography-body-m-font-size) / var(--tui-typography-body-m-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-s-bold-base-font-size: 13px;
+  --tui-typography-body-s-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-body-s-bold-base-font-size)
+  );
+  --tui-typography-body-s-bold-line-height-ratio: 1.5384615;
+  --tui-typography-body-s-bold-base-line-height: calc(
+    var(--tui-typography-body-s-bold-base-font-size) * var(--tui-typography-body-s-bold-line-height-ratio)
+  );
+  --tui-typography-body-s-bold-line-height: calc(
+    var(--tui-typography-body-s-bold-font-size) * var(--tui-typography-body-s-bold-line-height-ratio)
+  );
+  --tui-typography-body-s-bold: 500 var(--tui-typography-body-s-bold-font-size) /
+      var(--tui-typography-body-s-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-s-base-font-size: 13px;
+  --tui-typography-body-s-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-body-s-base-font-size));
+  --tui-typography-body-s-line-height-ratio: 1.5384615;
+  --tui-typography-body-s-base-line-height: calc(
+    var(--tui-typography-body-s-base-font-size) * var(--tui-typography-body-s-line-height-ratio)
+  );
+  --tui-typography-body-s-line-height: calc(
+    var(--tui-typography-body-s-font-size) * var(--tui-typography-body-s-line-height-ratio)
+  );
+  --tui-typography-body-s: 400 var(--tui-typography-body-s-font-size) / var(--tui-typography-body-s-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-xs-bold-base-font-size: 12px;
+  --tui-typography-body-xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-body-xs-bold-base-font-size)
+  );
+  --tui-typography-body-xs-bold-line-height-ratio: 1.5833333;
+  --tui-typography-body-xs-bold-base-line-height: calc(
+    var(--tui-typography-body-xs-bold-base-font-size) * var(--tui-typography-body-xs-bold-line-height-ratio)
+  );
+  --tui-typography-body-xs-bold-line-height: calc(
+    var(--tui-typography-body-xs-bold-font-size) * var(--tui-typography-body-xs-bold-line-height-ratio)
+  );
+  --tui-typography-body-xs-bold: 500 var(--tui-typography-body-xs-bold-font-size) /
+      var(--tui-typography-body-xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-body-xs-base-font-size: 12px;
+  --tui-typography-body-xs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-body-xs-base-font-size));
+  --tui-typography-body-xs-line-height-ratio: 1.5833333;
+  --tui-typography-body-xs-base-line-height: calc(
+    var(--tui-typography-body-xs-base-font-size) * var(--tui-typography-body-xs-line-height-ratio)
+  );
+  --tui-typography-body-xs-line-height: calc(
+    var(--tui-typography-body-xs-font-size) * var(--tui-typography-body-xs-line-height-ratio)
+  );
+  --tui-typography-body-xs: 400 var(--tui-typography-body-xs-font-size) / var(--tui-typography-body-xs-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-l-bold-base-font-size: 17px;
+  --tui-typography-ui-l-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-ui-l-bold-base-font-size)
+  );
+  --tui-typography-ui-l-bold-line-height-ratio: 1.4117647;
+  --tui-typography-ui-l-bold-base-line-height: calc(
+    var(--tui-typography-ui-l-bold-base-font-size) * var(--tui-typography-ui-l-bold-line-height-ratio)
+  );
+  --tui-typography-ui-l-bold-line-height: calc(
+    var(--tui-typography-ui-l-bold-font-size) * var(--tui-typography-ui-l-bold-line-height-ratio)
+  );
+  --tui-typography-ui-l-bold: 500 var(--tui-typography-ui-l-bold-font-size) /
+      var(--tui-typography-ui-l-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-l-base-font-size: 17px;
+  --tui-typography-ui-l-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-ui-l-base-font-size));
+  --tui-typography-ui-l-line-height-ratio: 1.4117647;
+  --tui-typography-ui-l-base-line-height: calc(
+    var(--tui-typography-ui-l-base-font-size) * var(--tui-typography-ui-l-line-height-ratio)
+  );
+  --tui-typography-ui-l-line-height: calc(
+    var(--tui-typography-ui-l-font-size) * var(--tui-typography-ui-l-line-height-ratio)
+  );
+  --tui-typography-ui-l: 400 var(--tui-typography-ui-l-font-size) / var(--tui-typography-ui-l-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-m-bold-base-font-size: 15px;
+  --tui-typography-ui-m-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-ui-m-bold-base-font-size)
+  );
+  --tui-typography-ui-m-bold-line-height-ratio: 1.3333333;
+  --tui-typography-ui-m-bold-base-line-height: calc(
+    var(--tui-typography-ui-m-bold-base-font-size) * var(--tui-typography-ui-m-bold-line-height-ratio)
+  );
+  --tui-typography-ui-m-bold-line-height: calc(
+    var(--tui-typography-ui-m-bold-font-size) * var(--tui-typography-ui-m-bold-line-height-ratio)
+  );
+  --tui-typography-ui-m-bold: 500 var(--tui-typography-ui-m-bold-font-size) /
+      var(--tui-typography-ui-m-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-m-base-font-size: 15px;
+  --tui-typography-ui-m-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-ui-m-base-font-size));
+  --tui-typography-ui-m-line-height-ratio: 1.3333333;
+  --tui-typography-ui-m-base-line-height: calc(
+    var(--tui-typography-ui-m-base-font-size) * var(--tui-typography-ui-m-line-height-ratio)
+  );
+  --tui-typography-ui-m-line-height: calc(
+    var(--tui-typography-ui-m-font-size) * var(--tui-typography-ui-m-line-height-ratio)
+  );
+  --tui-typography-ui-m: 400 var(--tui-typography-ui-m-font-size) / var(--tui-typography-ui-m-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-s-bold-base-font-size: 13px;
+  --tui-typography-ui-s-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-ui-s-bold-base-font-size)
+  );
+  --tui-typography-ui-s-bold-line-height-ratio: 1.2307692;
+  --tui-typography-ui-s-bold-base-line-height: calc(
+    var(--tui-typography-ui-s-bold-base-font-size) * var(--tui-typography-ui-s-bold-line-height-ratio)
+  );
+  --tui-typography-ui-s-bold-line-height: calc(
+    var(--tui-typography-ui-s-bold-font-size) * var(--tui-typography-ui-s-bold-line-height-ratio)
+  );
+  --tui-typography-ui-s-bold: 500 var(--tui-typography-ui-s-bold-font-size) /
+      var(--tui-typography-ui-s-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-s-base-font-size: 13px;
+  --tui-typography-ui-s-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-ui-s-base-font-size));
+  --tui-typography-ui-s-line-height-ratio: 1.2307692;
+  --tui-typography-ui-s-base-line-height: calc(
+    var(--tui-typography-ui-s-base-font-size) * var(--tui-typography-ui-s-line-height-ratio)
+  );
+  --tui-typography-ui-s-line-height: calc(
+    var(--tui-typography-ui-s-font-size) * var(--tui-typography-ui-s-line-height-ratio)
+  );
+  --tui-typography-ui-s: 400 var(--tui-typography-ui-s-font-size) / var(--tui-typography-ui-s-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-xs-bold-base-font-size: 12px;
+  --tui-typography-ui-xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-ui-xs-bold-base-font-size)
+  );
+  --tui-typography-ui-xs-bold-line-height-ratio: 1.25;
+  --tui-typography-ui-xs-bold-base-line-height: calc(
+    var(--tui-typography-ui-xs-bold-base-font-size) * var(--tui-typography-ui-xs-bold-line-height-ratio)
+  );
+  --tui-typography-ui-xs-bold-line-height: calc(
+    var(--tui-typography-ui-xs-bold-font-size) * var(--tui-typography-ui-xs-bold-line-height-ratio)
+  );
+  --tui-typography-ui-xs-bold: 500 var(--tui-typography-ui-xs-bold-font-size) /
+      var(--tui-typography-ui-xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-xs-base-font-size: 12px;
+  --tui-typography-ui-xs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-ui-xs-base-font-size));
+  --tui-typography-ui-xs-line-height-ratio: 1.25;
+  --tui-typography-ui-xs-base-line-height: calc(
+    var(--tui-typography-ui-xs-base-font-size) * var(--tui-typography-ui-xs-line-height-ratio)
+  );
+  --tui-typography-ui-xs-line-height: calc(
+    var(--tui-typography-ui-xs-font-size) * var(--tui-typography-ui-xs-line-height-ratio)
+  );
+  --tui-typography-ui-xs: 400 var(--tui-typography-ui-xs-font-size) / var(--tui-typography-ui-xs-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-2xs-bold-base-font-size: 11px;
+  --tui-typography-ui-2xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-ui-2xs-bold-base-font-size)
+  );
+  --tui-typography-ui-2xs-bold-line-height-ratio: 1.1818182;
+  --tui-typography-ui-2xs-bold-base-line-height: calc(
+    var(--tui-typography-ui-2xs-bold-base-font-size) * var(--tui-typography-ui-2xs-bold-line-height-ratio)
+  );
+  --tui-typography-ui-2xs-bold-line-height: calc(
+    var(--tui-typography-ui-2xs-bold-font-size) * var(--tui-typography-ui-2xs-bold-line-height-ratio)
+  );
+  --tui-typography-ui-2xs-bold: 500 var(--tui-typography-ui-2xs-bold-font-size) /
+      var(--tui-typography-ui-2xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-2xs-bold-letter-spacing: 0.4px;
+  --tui-typography-ui-2xs-base-font-size: 11px;
+  --tui-typography-ui-2xs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-ui-2xs-base-font-size));
+  --tui-typography-ui-2xs-line-height-ratio: 1.1818182;
+  --tui-typography-ui-2xs-base-line-height: calc(
+    var(--tui-typography-ui-2xs-base-font-size) * var(--tui-typography-ui-2xs-line-height-ratio)
+  );
+  --tui-typography-ui-2xs-line-height: calc(
+    var(--tui-typography-ui-2xs-font-size) * var(--tui-typography-ui-2xs-line-height-ratio)
+  );
+  --tui-typography-ui-2xs: 400 var(--tui-typography-ui-2xs-font-size) / var(--tui-typography-ui-2xs-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-2xs-letter-spacing: 0.4px;
+  --tui-typography-ui-3xs-bold-base-font-size: 9px;
+  --tui-typography-ui-3xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-ui-3xs-bold-base-font-size)
+  );
+  --tui-typography-ui-3xs-bold-line-height-ratio: 1.4444444;
+  --tui-typography-ui-3xs-bold-base-line-height: calc(
+    var(--tui-typography-ui-3xs-bold-base-font-size) * var(--tui-typography-ui-3xs-bold-line-height-ratio)
+  );
+  --tui-typography-ui-3xs-bold-line-height: calc(
+    var(--tui-typography-ui-3xs-bold-font-size) * var(--tui-typography-ui-3xs-bold-line-height-ratio)
+  );
+  --tui-typography-ui-3xs-bold: 500 var(--tui-typography-ui-3xs-bold-font-size) /
+      var(--tui-typography-ui-3xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-3xs-bold-letter-spacing: 0.4px;
+  --tui-typography-ui-3xs-base-font-size: 9px;
+  --tui-typography-ui-3xs-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-ui-3xs-base-font-size));
+  --tui-typography-ui-3xs-line-height-ratio: 1.4444444;
+  --tui-typography-ui-3xs-base-line-height: calc(
+    var(--tui-typography-ui-3xs-base-font-size) * var(--tui-typography-ui-3xs-line-height-ratio)
+  );
+  --tui-typography-ui-3xs-line-height: calc(
+    var(--tui-typography-ui-3xs-font-size) * var(--tui-typography-ui-3xs-line-height-ratio)
+  );
+  --tui-typography-ui-3xs: 400 var(--tui-typography-ui-3xs-font-size) / var(--tui-typography-ui-3xs-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-ui-3xs-letter-spacing: 0.4px;
+  --tui-typography-caps-s-bold-base-font-size: 13px;
+  --tui-typography-caps-s-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-caps-s-bold-base-font-size)
+  );
+  --tui-typography-caps-s-bold-line-height-ratio: 1.5384615;
+  --tui-typography-caps-s-bold-base-line-height: calc(
+    var(--tui-typography-caps-s-bold-base-font-size) * var(--tui-typography-caps-s-bold-line-height-ratio)
+  );
+  --tui-typography-caps-s-bold-line-height: calc(
+    var(--tui-typography-caps-s-bold-font-size) * var(--tui-typography-caps-s-bold-line-height-ratio)
+  );
+  --tui-typography-caps-s-bold: 500 var(--tui-typography-caps-s-bold-font-size) /
+      var(--tui-typography-caps-s-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-caps-s-bold-text-transform: uppercase;
+  --tui-typography-caps-s-bold-letter-spacing: 1px;
+  --tui-typography-caps-s-base-font-size: 13px;
+  --tui-typography-caps-s-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-caps-s-base-font-size));
+  --tui-typography-caps-s-line-height-ratio: 1.5384615;
+  --tui-typography-caps-s-base-line-height: calc(
+    var(--tui-typography-caps-s-base-font-size) * var(--tui-typography-caps-s-line-height-ratio)
+  );
+  --tui-typography-caps-s-line-height: calc(
+    var(--tui-typography-caps-s-font-size) * var(--tui-typography-caps-s-line-height-ratio)
+  );
+  --tui-typography-caps-s: 400 var(--tui-typography-caps-s-font-size) / var(--tui-typography-caps-s-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-caps-s-text-transform: uppercase;
+  --tui-typography-caps-s-letter-spacing: 1px;
+  --tui-typography-caps-2xs-bold-base-font-size: 11px;
+  --tui-typography-caps-2xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-caps-2xs-bold-base-font-size)
+  );
+  --tui-typography-caps-2xs-bold-line-height-ratio: 1.4545455;
+  --tui-typography-caps-2xs-bold-base-line-height: calc(
+    var(--tui-typography-caps-2xs-bold-base-font-size) * var(--tui-typography-caps-2xs-bold-line-height-ratio)
+  );
+  --tui-typography-caps-2xs-bold-line-height: calc(
+    var(--tui-typography-caps-2xs-bold-font-size) * var(--tui-typography-caps-2xs-bold-line-height-ratio)
+  );
+  --tui-typography-caps-2xs-bold: 500 var(--tui-typography-caps-2xs-bold-font-size) /
+      var(--tui-typography-caps-2xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-caps-2xs-bold-text-transform: uppercase;
+  --tui-typography-caps-2xs-bold-letter-spacing: 1px;
+  --tui-typography-caps-2xs-base-font-size: 11px;
+  --tui-typography-caps-2xs-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-caps-2xs-base-font-size)
+  );
+  --tui-typography-caps-2xs-line-height-ratio: 1.4545455;
+  --tui-typography-caps-2xs-base-line-height: calc(
+    var(--tui-typography-caps-2xs-base-font-size) * var(--tui-typography-caps-2xs-line-height-ratio)
+  );
+  --tui-typography-caps-2xs-line-height: calc(
+    var(--tui-typography-caps-2xs-font-size) * var(--tui-typography-caps-2xs-line-height-ratio)
+  );
+  --tui-typography-caps-2xs: 400 var(--tui-typography-caps-2xs-font-size) / var(--tui-typography-caps-2xs-line-height)
+      var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-caps-2xs-text-transform: uppercase;
+  --tui-typography-caps-2xs-letter-spacing: 1px;
+  --tui-typography-numbers-2xl-base-font-size: 56px;
+  --tui-typography-numbers-2xl-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-numbers-2xl-base-font-size)
+  );
+  --tui-typography-numbers-2xl-line-height-ratio: 1.1428571;
+  --tui-typography-numbers-2xl-base-line-height: calc(
+    var(--tui-typography-numbers-2xl-base-font-size) * var(--tui-typography-numbers-2xl-line-height-ratio)
+  );
+  --tui-typography-numbers-2xl-line-height: calc(
+    var(--tui-typography-numbers-2xl-font-size) * var(--tui-typography-numbers-2xl-line-height-ratio)
+  );
+  --tui-typography-numbers-2xl: 500 var(--tui-typography-numbers-2xl-font-size) /
+      var(--tui-typography-numbers-2xl-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-numbers-xl-base-font-size: 36px;
+  --tui-typography-numbers-xl-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-numbers-xl-base-font-size)
+  );
+  --tui-typography-numbers-xl-line-height-ratio: 1.1111111;
+  --tui-typography-numbers-xl-base-line-height: calc(
+    var(--tui-typography-numbers-xl-base-font-size) * var(--tui-typography-numbers-xl-line-height-ratio)
+  );
+  --tui-typography-numbers-xl-line-height: calc(
+    var(--tui-typography-numbers-xl-font-size) * var(--tui-typography-numbers-xl-line-height-ratio)
+  );
+  --tui-typography-numbers-xl: 500 var(--tui-typography-numbers-xl-font-size) /
+      var(--tui-typography-numbers-xl-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-numbers-m-base-font-size: 20px;
+  --tui-typography-numbers-m-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-numbers-m-base-font-size)
+  );
+  --tui-typography-numbers-m-line-height-ratio: 1.2;
+  --tui-typography-numbers-m-base-line-height: calc(
+    var(--tui-typography-numbers-m-base-font-size) * var(--tui-typography-numbers-m-line-height-ratio)
+  );
+  --tui-typography-numbers-m-line-height: calc(
+    var(--tui-typography-numbers-m-font-size) * var(--tui-typography-numbers-m-line-height-ratio)
+  );
+  --tui-typography-numbers-m: 500 var(--tui-typography-numbers-m-font-size) /
+      var(--tui-typography-numbers-m-line-height) var(--tui-typography-font-family-display),
+    var(--tui-typography-font-family-display-fallback);
+  --tui-typography-code-m-base-font-size: 15px;
+  --tui-typography-code-m-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-code-m-base-font-size));
+  --tui-typography-code-m-line-height-ratio: 1.3333333;
+  --tui-typography-code-m-base-line-height: calc(
+    var(--tui-typography-code-m-base-font-size) * var(--tui-typography-code-m-line-height-ratio)
+  );
+  --tui-typography-code-m-line-height: calc(
+    var(--tui-typography-code-m-font-size) * var(--tui-typography-code-m-line-height-ratio)
+  );
+  --tui-typography-code-m: 400 var(--tui-typography-code-m-font-size) / var(--tui-typography-code-m-line-height)
+      var(--tui-typography-font-family-code),
+    var(--tui-typography-font-family-code-fallback);
+  --tui-typography-code-s-base-font-size: 13px;
+  --tui-typography-code-s-font-size: calc(var(--tui-font-offset, 0px) + var(--tui-typography-code-s-base-font-size));
+  --tui-typography-code-s-line-height-ratio: 1.2307692;
+  --tui-typography-code-s-base-line-height: calc(
+    var(--tui-typography-code-s-base-font-size) * var(--tui-typography-code-s-line-height-ratio)
+  );
+  --tui-typography-code-s-line-height: calc(
+    var(--tui-typography-code-s-font-size) * var(--tui-typography-code-s-line-height-ratio)
+  );
+  --tui-typography-code-s: 400 var(--tui-typography-code-s-font-size) / var(--tui-typography-code-s-line-height)
+      var(--tui-typography-font-family-code),
+    var(--tui-typography-font-family-code-fallback);
+  --tui-typography-legacy-body-xl-bold-base-font-size: 19px;
+  --tui-typography-legacy-body-xl-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-legacy-body-xl-bold-base-font-size)
+  );
+  --tui-typography-legacy-body-xl-bold-line-height-ratio: 1.4736842;
+  --tui-typography-legacy-body-xl-bold-base-line-height: calc(
+    var(--tui-typography-legacy-body-xl-bold-base-font-size) *
+      var(--tui-typography-legacy-body-xl-bold-line-height-ratio)
+  );
+  --tui-typography-legacy-body-xl-bold-line-height: calc(
+    var(--tui-typography-legacy-body-xl-bold-font-size) * var(--tui-typography-legacy-body-xl-bold-line-height-ratio)
+  );
+  --tui-typography-legacy-body-xl-bold: 500 var(--tui-typography-legacy-body-xl-bold-font-size) /
+      var(--tui-typography-legacy-body-xl-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-legacy-body-xl-base-font-size: 19px;
+  --tui-typography-legacy-body-xl-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-legacy-body-xl-base-font-size)
+  );
+  --tui-typography-legacy-body-xl-line-height-ratio: 1.4736842;
+  --tui-typography-legacy-body-xl-base-line-height: calc(
+    var(--tui-typography-legacy-body-xl-base-font-size) * var(--tui-typography-legacy-body-xl-line-height-ratio)
+  );
+  --tui-typography-legacy-body-xl-line-height: calc(
+    var(--tui-typography-legacy-body-xl-font-size) * var(--tui-typography-legacy-body-xl-line-height-ratio)
+  );
+  --tui-typography-legacy-body-xl: 400 var(--tui-typography-legacy-body-xl-font-size) /
+      var(--tui-typography-legacy-body-xl-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-legacy-body-2xs-bold-base-font-size: 11px;
+  --tui-typography-legacy-body-2xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-legacy-body-2xs-bold-base-font-size)
+  );
+  --tui-typography-legacy-body-2xs-bold-line-height-ratio: 1.4545455;
+  --tui-typography-legacy-body-2xs-bold-base-line-height: calc(
+    var(--tui-typography-legacy-body-2xs-bold-base-font-size) *
+      var(--tui-typography-legacy-body-2xs-bold-line-height-ratio)
+  );
+  --tui-typography-legacy-body-2xs-bold-line-height: calc(
+    var(--tui-typography-legacy-body-2xs-bold-font-size) * var(--tui-typography-legacy-body-2xs-bold-line-height-ratio)
+  );
+  --tui-typography-legacy-body-2xs-bold: 500 var(--tui-typography-legacy-body-2xs-bold-font-size) /
+      var(--tui-typography-legacy-body-2xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-legacy-body-2xs-bold-letter-spacing: 0.4px;
+  --tui-typography-legacy-body-2xs-base-font-size: 11px;
+  --tui-typography-legacy-body-2xs-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-legacy-body-2xs-base-font-size)
+  );
+  --tui-typography-legacy-body-2xs-line-height-ratio: 1.4545455;
+  --tui-typography-legacy-body-2xs-base-line-height: calc(
+    var(--tui-typography-legacy-body-2xs-base-font-size) * var(--tui-typography-legacy-body-2xs-line-height-ratio)
+  );
+  --tui-typography-legacy-body-2xs-line-height: calc(
+    var(--tui-typography-legacy-body-2xs-font-size) * var(--tui-typography-legacy-body-2xs-line-height-ratio)
+  );
+  --tui-typography-legacy-body-2xs: 400 var(--tui-typography-legacy-body-2xs-font-size) /
+      var(--tui-typography-legacy-body-2xs-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-legacy-body-2xs-letter-spacing: 0.4px;
+  --tui-typography-legacy-body-3xs-bold-base-font-size: 9px;
+  --tui-typography-legacy-body-3xs-bold-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-legacy-body-3xs-bold-base-font-size)
+  );
+  --tui-typography-legacy-body-3xs-bold-line-height-ratio: 1.7777778;
+  --tui-typography-legacy-body-3xs-bold-base-line-height: calc(
+    var(--tui-typography-legacy-body-3xs-bold-base-font-size) *
+      var(--tui-typography-legacy-body-3xs-bold-line-height-ratio)
+  );
+  --tui-typography-legacy-body-3xs-bold-line-height: calc(
+    var(--tui-typography-legacy-body-3xs-bold-font-size) * var(--tui-typography-legacy-body-3xs-bold-line-height-ratio)
+  );
+  --tui-typography-legacy-body-3xs-bold: 500 var(--tui-typography-legacy-body-3xs-bold-font-size) /
+      var(--tui-typography-legacy-body-3xs-bold-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+  --tui-typography-legacy-body-3xs-base-font-size: 9px;
+  --tui-typography-legacy-body-3xs-font-size: calc(
+    var(--tui-font-offset, 0px) + var(--tui-typography-legacy-body-3xs-base-font-size)
+  );
+  --tui-typography-legacy-body-3xs-line-height-ratio: 1.7777778;
+  --tui-typography-legacy-body-3xs-base-line-height: calc(
+    var(--tui-typography-legacy-body-3xs-base-font-size) * var(--tui-typography-legacy-body-3xs-line-height-ratio)
+  );
+  --tui-typography-legacy-body-3xs-line-height: calc(
+    var(--tui-typography-legacy-body-3xs-font-size) * var(--tui-typography-legacy-body-3xs-line-height-ratio)
+  );
+  --tui-typography-legacy-body-3xs: 400 var(--tui-typography-legacy-body-3xs-font-size) /
+      var(--tui-typography-legacy-body-3xs-line-height) var(--tui-typography-font-family-text),
+    var(--tui-typography-font-family-text-fallback);
+}

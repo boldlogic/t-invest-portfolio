@@ -1,0 +1,169 @@
+@font-face {
+  font-family: "dsText";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("NeueHaasUnicaW1G-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "dsText Fallback";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Arial");
+  ascent-override: 89.53%;
+  descent-override: 22.73%;
+  line-gap-override: 0%;
+  size-adjust: 100.3%;
+}
+
+@font-face {
+  font-family: "dsText";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("NeueHaasUnicaW1G-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "dsText Fallback";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Arial");
+  ascent-override: 87.68%;
+  descent-override: 24.01%;
+  line-gap-override: 0%;
+  size-adjust: 102.88%;
+}
+
+@font-face {
+  font-family: "dsText";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("NeueHaasUnicaW1G-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "dsText Fallback";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Arial Bold");
+  ascent-override: 92.97%;
+  descent-override: 27.3%;
+  line-gap-override: 0%;
+  size-adjust: 97.45%;
+}
+
+@font-face {
+  font-family: "dsHeading";
+  src: url("DSHeading.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dsHeading Fallback";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Arial");
+  ascent-override: 103.36%;
+  descent-override: 36%;
+  line-gap-override: 0%;
+  size-adjust: 88.33%;
+}
+
+@font-face {
+  font-family: "dsHeading";
+  src: url("DSHeading_Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dsHeading Fallback";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Arial");
+  ascent-override: 93.77%;
+  descent-override: 32.66%;
+  line-gap-override: 0%;
+  size-adjust: 97.37%;
+}
+
+@font-face {
+  font-family: "dsHeading";
+  src: url("DSHeading_Bold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "dsHeading Fallback";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Arial");
+  ascent-override: 89.11%;
+  descent-override: 31.04%;
+  line-gap-override: 0%;
+  size-adjust: 102.46%;
+}
+
+@font-face {
+  font-family: "Neue Haas Unica W1G";
+  src: url("neue-haas-unica-w1g-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue Haas Unica W1G";
+  src: url("neue-haas-unica-w1g-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: T-Sans;
+  src: url("t-sans-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: T-Sans;
+  src: url("t-sans-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: T-Sans;
+  src: url("t-sans-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("jet-brains-mono-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Open Runde";
+  src: url("open-runde-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
