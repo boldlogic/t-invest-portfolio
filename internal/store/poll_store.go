@@ -334,7 +334,7 @@ func (db *DB) SavePortfolioPositions(ctx context.Context, accountID string, posi
 			uid, position.Figi, position.Ticker, position.Name, position.ClassCode, position.InstrumentType); err != nil {
 			return err
 		}
-		if err := mssql.linkInstrument(uid, position.Figi, position.Ticker, position.Name, position.ClassCode); err != nil {
+		if err := mssql.linkInstrument(uid, position.Figi, position.Ticker); err != nil {
 			return err
 		}
 	}

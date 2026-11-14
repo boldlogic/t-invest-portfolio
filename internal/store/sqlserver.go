@@ -7,7 +7,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	"unicode/utf8"
 
 	"t-invest-portfolio/internal/portfolio"
 )
@@ -24,7 +23,6 @@ type mssqlTx struct {
 const (
 	externalCodeTypeInstrument = 3
 	externalCodeTypeFIGI       = 4
-	externalCodeTypeISIN       = 5
 	externalCodeTypeUID        = 6
 )
 
@@ -66,7 +64,7 @@ OUTPUT INSERTED.source_account_id;`, account.ID, account.Name, account.Type).Sca
 	return id, nil
 }
 
-func (tx *mssqlTx) linkInstrument(uid, figi, ticker, name, classCode string) error {
+func (tx *mssqlTx) linkInstrument(uid, figi, ticker string) error {
 	if uid == figi {
 		uid = ""
 	}
@@ -74,99 +72,44 @@ func (tx *mssqlTx) linkInstrument(uid, figi, ticker, name, classCode string) err
 	if err := tx.tx.QueryRowContext(tx.ctx, `SELECT ext_system_id FROM ref.external_systems WHERE ext_system = N'TINVEST'`).Scan(&systemID); err != nil {
 		return fmt.Errorf("источник TINVEST в справочнике: %w", err)
 	}
-	var refID int64
-	uidTargets, err := tx.externalCodeTargets(systemID, externalCodeTypeUID, uid)
-	if err != nil {
-		return fmt.Errorf("сопоставление UID T-Invest: %w", err)
-	}
-	figiTargets, err := tx.externalCodeTargetsAnySystem(externalCodeTypeFIGI, figi)
-	if err != nil {
-		return fmt.Errorf("сопоставление FIGI: %w", err)
-	}
-	if len(uidTargets) > 1 || len(figiTargets) > 1 {
-		return nil
-	}
-	if len(uidTargets) == 1 && len(figiTargets) == 1 && uidTargets[0] != figiTargets[0] {
-		return nil
-	}
-	if len(uidTargets) == 1 {
-		refID = uidTargets[0]
-	} else if len(figiTargets) == 1 {
-		refID = figiTargets[0]
-	}
-	if refID == 0 && strings.TrimSpace(ticker) != "" {
-		ids, err := tx.externalCodeTargets(systemID, externalCodeTypeInstrument, ticker)
+	var candidates []int64
+	for _, code := range []struct {
+		value string
+		kind  int
+		any   bool
+	}{{uid, externalCodeTypeUID, false}, {figi, externalCodeTypeFIGI, true}, {ticker, externalCodeTypeInstrument, false}} {
+		if strings.TrimSpace(code.value) == "" {
+			continue
+		}
+		var targets []int64
+		var err error
+		if code.any {
+			targets, err = tx.externalCodeTargetsAnySystem(code.kind, code.value)
+		} else {
+			targets, err = tx.externalCodeTargets(systemID, code.kind, code.value)
+		}
 		if err != nil {
-			return fmt.Errorf("сопоставление тикера T-Invest: %w", err)
+			return fmt.Errorf("сопоставление кода T-Invest: %w", err)
 		}
-		if len(ids) > 1 {
+		if len(targets) > 1 {
 			return nil
 		}
-		if len(ids) == 1 {
-			refID = ids[0]
+		if len(targets) == 1 {
+			candidates = append(candidates, targets[0])
 		}
 	}
-	if refID == 0 && strings.TrimSpace(ticker) != "" {
-		var count int
-		if err := tx.tx.QueryRowContext(tx.ctx, `SELECT COUNT(*) FROM ref.instruments WHERE ticker = @p1`, ticker).Scan(&count); err != nil {
-			return fmt.Errorf("поиск инструмента по тикеру: %w", err)
-		}
-		if count == 1 {
-			if err := tx.tx.QueryRowContext(tx.ctx, `SELECT instrument_id FROM ref.instruments WHERE ticker = @p1`, ticker).Scan(&refID); err != nil {
-				return err
-			}
-		} else if count > 1 {
-			return nil
-		}
-	}
-	if refID == 0 && strings.TrimSpace(ticker) != "" && utf8.RuneCountInString(ticker) <= 12 {
-		var typeCount int
-		var typeID, pointID sql.NullInt64
-		if err := tx.tx.QueryRowContext(tx.ctx, `
-SELECT COUNT(DISTINCT type_id), MIN(type_id), MIN(trade_point_id)
-FROM (
-	SELECT tb.type_id, b.trade_point_id
-	FROM ref.boards b JOIN ref.instrument_type_boards tb ON tb.board_id = b.board_id
-	WHERE b.code = @p1
-) resolved`, classCode).Scan(&typeCount, &typeID, &pointID); err != nil {
-			return fmt.Errorf("тип инструмента по доске %s: %w", classCode, err)
-		}
-		if typeCount == 1 && typeID.Valid {
-			shortName, fullName := name, name
-			if utf8.RuneCountInString(shortName) > 50 {
-				shortName = string([]rune(shortName)[:50])
-			}
-			if utf8.RuneCountInString(fullName) > 100 {
-				fullName = string([]rune(fullName)[:100])
-			}
-			if err := tx.tx.QueryRowContext(tx.ctx, `
-INSERT INTO ref.instruments (trade_point_id, ticker, full_name, short_name, isin, face_value, maturity_date, type_id)
-OUTPUT INSERTED.instrument_id VALUES (@p1, @p2, @p3, @p4, NULL, NULL, NULL, @p5)`, nullableInt64(pointID), ticker, fullName, shortName, typeID.Int64).Scan(&refID); err != nil {
-				return fmt.Errorf("создание общего инструмента %s: %w", ticker, err)
-			}
-		}
-	}
-	if refID == 0 {
+	if len(candidates) == 0 {
 		return nil
+	}
+	refID := candidates[0]
+	for _, candidate := range candidates[1:] {
+		if candidate != refID {
+			return nil
+		}
 	}
 	localKey := localInstrumentKey(uid, figi)
 	if _, err := tx.tx.ExecContext(tx.ctx, `UPDATE tinvest.instrument SET ref_instrument_id = @p1 WHERE uid = @p2`, refID, localKey); err != nil {
 		return fmt.Errorf("связь T-Invest с общим инструментом: %w", err)
-	}
-	for _, code := range []struct {
-		value string
-		kind  int
-	}{{uid, externalCodeTypeUID}, {figi, externalCodeTypeFIGI}, {ticker, externalCodeTypeInstrument}} {
-		if code.value == "" || len([]rune(code.value)) > 100 {
-			continue
-		}
-		if _, err := tx.tx.ExecContext(tx.ctx, `
-IF EXISTS (SELECT 1 FROM ref.external_codes WHERE ext_system_id = @p1 AND ext_code_type_id = @p2 AND ext_code = @p3)
-	UPDATE ref.external_codes SET internal_id = @p4 WHERE ext_system_id = @p1 AND ext_code_type_id = @p2 AND ext_code = @p3;
-ELSE
-	INSERT INTO ref.external_codes (ext_system_id, ext_code, ext_code_type_id, internal_id) VALUES (@p1, @p3, @p2, @p4);`, systemID, code.kind, code.value, refID); err != nil {
-			return fmt.Errorf("запись внешнего кода T-Invest: %w", err)
-		}
 	}
 	return nil
 }
@@ -195,87 +138,6 @@ func (tx *mssqlTx) readExternalCodeTargets(query string, args ...any) ([]int64, 
 	}
 	return ids, rows.Err()
 }
-func (tx *mssqlTx) linkISIN(uid, isin string) error {
-	isin = strings.TrimSpace(isin)
-	if isin == "" || len([]rune(isin)) > 100 {
-		return nil
-	}
-	var refID sql.NullInt64
-	var stableMatch bool
-	if err := tx.tx.QueryRowContext(tx.ctx, `
-SELECT i.ref_instrument_id, CASE WHEN EXISTS (
-	SELECT 1 FROM ref.external_codes ec
-	WHERE ec.ext_code_type_id IN (@p2, @p3) AND ec.ext_code IN (i.uid, i.figi) AND ec.internal_id = i.ref_instrument_id
-) THEN 1 ELSE 0 END
-FROM tinvest.instrument i WHERE i.uid = @p1`, uid, externalCodeTypeUID, externalCodeTypeFIGI).Scan(&refID, &stableMatch); err != nil {
-		return err
-	}
-	isinTargets, err := tx.externalCodeTargetsAnySystem(externalCodeTypeISIN, isin)
-	if err != nil {
-		return fmt.Errorf("поиск внешнего кода ISIN: %w", err)
-	}
-	if len(isinTargets) > 1 {
-		return nil
-	}
-	var isinID sql.NullInt64
-	if len(isinTargets) == 1 {
-		isinID = sql.NullInt64{Int64: isinTargets[0], Valid: true}
-	} else {
-		var count int
-		if err := tx.tx.QueryRowContext(tx.ctx, `SELECT COUNT(*) FROM ref.instruments WHERE isin = @p1`, isin).Scan(&count); err != nil {
-			return fmt.Errorf("поиск инструмента по ISIN: %w", err)
-		}
-		if count > 1 {
-			return nil
-		}
-		if count == 1 {
-			var id int64
-			if err := tx.tx.QueryRowContext(tx.ctx, `SELECT instrument_id FROM ref.instruments WHERE isin = @p1`, isin).Scan(&id); err != nil {
-				return err
-			}
-			isinID = sql.NullInt64{Int64: id, Valid: true}
-		}
-	}
-	if isinID.Valid && (!refID.Valid || !stableMatch) {
-		id := isinID.Int64
-		refID = sql.NullInt64{Int64: id, Valid: true}
-		if _, err := tx.tx.ExecContext(tx.ctx, `UPDATE tinvest.instrument SET ref_instrument_id = @p1 WHERE uid = @p2`, id, uid); err != nil {
-			return err
-		}
-		var systemID int
-		if err := tx.tx.QueryRowContext(tx.ctx, `SELECT ext_system_id FROM ref.external_systems WHERE ext_system = N'TINVEST'`).Scan(&systemID); err != nil {
-			return err
-		}
-		if _, err := tx.tx.ExecContext(tx.ctx, `
-UPDATE ec SET internal_id = @p1
-FROM ref.external_codes ec
-JOIN tinvest.instrument i ON ec.ext_code IN (i.uid, i.figi, i.ticker)
-WHERE i.uid = @p2 AND ec.ext_system_id = @p3 AND (
-	(ec.ext_code_type_id = @p4 AND ec.ext_code = i.uid)
-	OR (ec.ext_code_type_id = @p5 AND ec.ext_code = i.figi)
-	OR (ec.ext_code_type_id = @p6 AND ec.ext_code = i.ticker)
-)`, id, uid, systemID, externalCodeTypeUID, externalCodeTypeFIGI, externalCodeTypeInstrument); err != nil {
-			return err
-		}
-	}
-	if !refID.Valid {
-		return nil
-	}
-	var systemID int
-	if err := tx.tx.QueryRowContext(tx.ctx, `SELECT ext_system_id FROM ref.external_systems WHERE ext_system = N'TINVEST'`).Scan(&systemID); err != nil {
-		return err
-	}
-	_, err = tx.tx.ExecContext(tx.ctx, `
-IF EXISTS (SELECT 1 FROM ref.external_codes WHERE ext_system_id = @p1 AND ext_code_type_id = @p3 AND ext_code = @p2)
-	UPDATE ref.external_codes SET internal_id = @p4 WHERE ext_system_id = @p1 AND ext_code_type_id = @p3 AND ext_code = @p2;
-ELSE
-	INSERT INTO ref.external_codes (ext_system_id, ext_code, ext_code_type_id, internal_id) VALUES (@p1, @p2, @p3, @p4);`, systemID, isin, externalCodeTypeISIN, refID.Int64)
-	if err != nil {
-		return fmt.Errorf("запись ISIN T-Invest: %w", err)
-	}
-	return nil
-}
-
 func (tx *mssqlTx) localLoadDate() (time.Time, error) {
 	var loadDate time.Time
 	if err := tx.tx.QueryRowContext(tx.ctx, `SELECT CAST(SYSDATETIMEOFFSET() AS date)`).Scan(&loadDate); err != nil {
