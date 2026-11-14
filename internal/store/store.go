@@ -84,7 +84,9 @@ SELECT CASE WHEN
 	OBJECT_ID(N'tinvest.report_account_mapping', N'U') IS NOT NULL AND
 	OBJECT_ID(N'tinvest.trade_record', N'U') IS NOT NULL AND
 	COL_LENGTH(N'tinvest.trade_record', N'isin') IS NOT NULL AND
-	OBJECT_ID(N'tinvest.subscriptions', N'U') IS NOT NULL AND
+		OBJECT_ID(N'tinvest.instrument_asset', N'U') IS NOT NULL AND
+		OBJECT_ID(N'market.instrument_quote_subscriptions', N'U') IS NOT NULL AND
+		OBJECT_ID(N'market.instrument_subscription_requests', N'U') IS NOT NULL AND
 	COL_LENGTH(N'tinvest.operation', N'report_authoritative') IS NOT NULL AND
 	COL_LENGTH(N'tinvest.operation', N'normalized_type') IS NOT NULL
 THEN 1 ELSE 0 END`).Scan(&ready)
@@ -94,7 +96,7 @@ THEN 1 ELSE 0 END`).Scan(&ready)
 	}
 	if !ready {
 		_ = raw.Close()
-		return nil, fmt.Errorf("в SQL Server не применена миграция состояния T-Invest/общего портфеля, migrations/100_tinvest_broker_reports.sql или quik-portfolio/migrations/088_tinvest_subscriptions.sql")
+		return nil, fmt.Errorf("в SQL Server не применены миграции состояния T-Invest/общего портфеля и централизованных подписок, включая quik-portfolio/migrations/096_market_instrument_subscriptions.sql")
 	}
 	return &DB{sql: raw, dialect: "sqlserver"}, nil
 }

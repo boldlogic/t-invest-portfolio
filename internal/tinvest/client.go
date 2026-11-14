@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"google.golang.org/protobuf/proto"
@@ -129,6 +130,7 @@ func (c *Client) Portfolio(ctx context.Context, accountID string) (*pb.Portfolio
 }
 
 // Instrument возвращает тикер и название по uid.
+// Карточка актива по-прежнему резолвит asset_uid этим вызовом.
 func (c *Client) Instrument(ctx context.Context, uid string) (portfolio.InstrumentMeta, error) {
 	if err := ctx.Err(); err != nil {
 		return portfolio.InstrumentMeta{}, err
@@ -148,11 +150,46 @@ func (c *Client) Instrument(ctx context.Context, uid string) (portfolio.Instrume
 	if instrument == nil {
 		return portfolio.InstrumentMeta{}, fmt.Errorf("инструмент %s: пустой ответ", uid)
 	}
+	return instrumentMeta(instrument), nil
+}
+
+// InstrumentByTicker возвращает карточку инструмента по тикеру и class_code площадки T-Invest.
+func (c *Client) InstrumentByTicker(ctx context.Context, ticker, classCode string) (portfolio.InstrumentMeta, error) {
+	ticker = strings.TrimSpace(ticker)
+	classCode = strings.TrimSpace(classCode)
+	started := time.Now()
+	request := map[string]any{"ticker": ticker, "class_code": classCode}
+	if err := ctx.Err(); err != nil {
+		c.note("InstrumentByTicker", started, request, nil, err)
+		return portfolio.InstrumentMeta{}, err
+	}
+	if ticker == "" || classCode == "" {
+		err := fmt.Errorf("для инструмента нужны тикер и class_code")
+		c.note("InstrumentByTicker", started, request, nil, err)
+		return portfolio.InstrumentMeta{}, err
+	}
+	resp, err := c.instruments.InstrumentByTicker(ticker, classCode)
+	var body proto.Message
+	if resp != nil && resp.InstrumentResponse != nil {
+		body = resp.InstrumentResponse
+	}
+	c.note("InstrumentByTicker", started, request, body, err)
+	if err != nil {
+		return portfolio.InstrumentMeta{}, fmt.Errorf("инструмент %s %s: %w", ticker, classCode, err)
+	}
+	instrument := resp.GetInstrument()
+	if instrument == nil {
+		return portfolio.InstrumentMeta{}, fmt.Errorf("инструмент %s %s: пустой ответ", ticker, classCode)
+	}
+	return instrumentMeta(instrument), nil
+}
+
+func instrumentMeta(instrument *pb.Instrument) portfolio.InstrumentMeta {
 	return portfolio.InstrumentMeta{
 		Ticker:   instrument.GetTicker(),
 		Name:     instrument.GetName(),
 		AssetUID: instrument.GetAssetUid(),
-	}, nil
+	}
 }
 
 type stderrLogger struct{}

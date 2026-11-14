@@ -34,6 +34,7 @@ type Source interface {
 	ClosePrices(context.Context, []string) ([]portfolio.MarketQuote, error)
 	TradingStatuses(context.Context, []string) ([]portfolio.TradingState, error)
 	Instrument(context.Context, string) (portfolio.InstrumentMeta, error)
+	InstrumentByTicker(context.Context, string, string) (portfolio.InstrumentMeta, error)
 	Share(context.Context, string) (portfolio.SharePassport, error)
 	Etf(context.Context, string) (portfolio.EtfPassport, error)
 	Bond(context.Context, string) (portfolio.Position, error)
@@ -177,7 +178,7 @@ func (e *Engine) tasks() []Task {
 		{Name: "последние цены", Method: "GetLastPrices", Interval: interval("last_prices", time.Minute), Run: e.pollLastPrices},
 		{Name: "цены закрытия", Method: "GetClosePrices", Interval: interval("close_prices", time.Minute), Run: e.pollClosePrices},
 		{Name: "статусы торгов", Method: "GetTradingStatuses", Interval: interval("trading_statuses", time.Minute), Run: e.pollTradingStatuses},
-		{Name: "справочные данные инструментов", Method: "InstrumentByUid", Interval: interval("instrument_metadata", 24*time.Hour), Run: e.pollMetadata},
+		{Name: "справочные данные инструментов", Method: "InstrumentByTicker", Interval: interval("instrument_metadata", 24*time.Hour), Run: e.pollMetadata},
 		{Name: "паспорта акций", Method: "ShareBy", Interval: interval("share_passport", 24*time.Hour), Run: e.pollSharePassports},
 		{Name: "паспорта фондов", Method: "EtfBy", Interval: interval("etf_passport", 24*time.Hour), Run: e.pollEtfPassports},
 		{Name: "паспорта облигаций", Method: "BondBy", Interval: interval("bond_passport", 24*time.Hour), Run: e.pollBondPassports},
@@ -503,7 +504,11 @@ func (e *Engine) pollClosePrices(ctx context.Context) error {
 }
 
 func (e *Engine) pollPrices(ctx context.Context, method, entity string, call func(context.Context, []string) ([]portfolio.MarketQuote, error)) error {
-	ids := e.instrumentIDs()
+	subscriptions, err := e.Store.ListSubscriptions(ctx)
+	if err != nil {
+		return err
+	}
+	ids := quoteSubscriptionIDs(subscriptions)
 	if len(ids) == 0 {
 		return nil
 	}
@@ -525,6 +530,28 @@ func (e *Engine) pollPrices(ctx context.Context, method, entity string, call fun
 		}
 	}
 	return e.Store.ReplaceCurrent(ctx, entity, "portfolio", rows)
+}
+
+func quoteSubscriptionIDs(items []portfolio.Subscription) []string {
+	seen := map[string]bool{}
+	for _, item := range items {
+		if !item.Resolved {
+			continue
+		}
+		id := item.InstrumentUID
+		if id == "" {
+			id = item.Figi
+		}
+		if id != "" {
+			seen[id] = true
+		}
+	}
+	out := make([]string, 0, len(seen))
+	for id := range seen {
+		out = append(out, id)
+	}
+	sort.Strings(out)
+	return out
 }
 
 func (e *Engine) pollTradingStatuses(ctx context.Context) error {
@@ -558,23 +585,28 @@ func (e *Engine) pollMetadata(ctx context.Context) error {
 	}
 	var failures []string
 	for _, position := range e.allPositions() {
-		uid := position.InstrumentUID
-		if uid == "" {
-			uid = position.Figi
-		}
-		if uid == "" {
+		ticker := strings.TrimSpace(position.Ticker)
+		classCode := strings.TrimSpace(position.ClassCode)
+		if ticker == "" || classCode == "" {
 			continue
 		}
-		if err := e.wait(ctx, "InstrumentByUid"); err != nil {
+		if err := e.wait(ctx, "InstrumentByTicker"); err != nil {
 			return err
 		}
-		meta, err := e.Source.Instrument(ctx, uid)
+		meta, err := e.Source.InstrumentByTicker(ctx, ticker, classCode)
 		if err != nil {
-			failures = append(failures, uid+": "+err.Error())
+			failures = append(failures, ticker+" "+classCode+": "+err.Error())
 			continue
 		}
-		if err := e.saveOne(ctx, "instrument_metadata", "instrument", uid, time.Now().UTC(), meta); err != nil {
-			failures = append(failures, uid+": "+err.Error())
+		key := position.InstrumentUID
+		if key == "" {
+			key = position.Figi
+		}
+		if key == "" {
+			continue
+		}
+		if err := e.saveOne(ctx, "instrument_metadata", "instrument", key, time.Now().UTC(), meta); err != nil {
+			failures = append(failures, ticker+" "+classCode+": "+err.Error())
 		}
 	}
 	return errorsJoin(failures)

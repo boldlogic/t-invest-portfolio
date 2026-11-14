@@ -8,6 +8,7 @@ type Subscription struct {
 	ClassCode     string
 	Figi          string
 	AssetUID      string
+	Resolved      bool
 }
 
 // SubscriptionFromPosition берёт бумагу из позиции портфеля.

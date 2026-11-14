@@ -109,8 +109,18 @@ CREATE TABLE IF NOT EXISTS report_account_mapping (
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS subscriptions (
-    subscription_id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS instrument_quote_subscriptions (
+    instrument_id INTEGER PRIMARY KEY,
+    instrument_uid TEXT NOT NULL DEFAULT '',
+    ticker TEXT NOT NULL DEFAULT '',
+    class_code TEXT NOT NULL DEFAULT '',
+    figi TEXT NOT NULL DEFAULT '',
+    asset_uid TEXT NOT NULL DEFAULT '',
+    enabled INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS instrument_subscription_requests (
+    request_id INTEGER PRIMARY KEY AUTOINCREMENT,
     instrument_uid TEXT NOT NULL DEFAULT '',
     ticker TEXT NOT NULL DEFAULT '',
     class_code TEXT NOT NULL DEFAULT '',
@@ -118,11 +128,11 @@ CREATE TABLE IF NOT EXISTS subscriptions (
     asset_uid TEXT NOT NULL DEFAULT ''
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS ux_subscriptions_uid
-    ON subscriptions(instrument_uid) WHERE instrument_uid <> '';
+CREATE UNIQUE INDEX IF NOT EXISTS ux_instrument_subscription_requests_uid
+    ON instrument_subscription_requests(instrument_uid) WHERE instrument_uid <> '';
 
-CREATE UNIQUE INDEX IF NOT EXISTS ux_subscriptions_ticker
-    ON subscriptions(ticker, class_code) WHERE instrument_uid = '' AND ticker <> '';
+CREATE UNIQUE INDEX IF NOT EXISTS ux_instrument_subscription_requests_ticker
+    ON instrument_subscription_requests(ticker, class_code) WHERE instrument_uid = '' AND ticker <> '';
 
 CREATE TABLE IF NOT EXISTS insider_deal_record (
     record_key TEXT NOT NULL PRIMARY KEY,
